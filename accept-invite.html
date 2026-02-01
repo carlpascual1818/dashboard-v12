@@ -176,7 +176,7 @@
   
   <script>
     // ⚠️ IMPORTANT: Replace with your Apps Script web app URL
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxt6zJazLzGqyTIZbzLK4wA7EvvHiMByY0itHjBq1uEQdyJva4ck7OZQgg1GrKKF-Wv/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwCcZnw2M4FRNyTrM3oHZjfn8lCvlelqa1Wc1jvQeKrpkvA6mBzjl_zWRmlUQHNMSHc/exec';
     
     const urlParams = new URLSearchParams(window.location.search);
     const inviteToken = urlParams.get('token');
@@ -295,7 +295,7 @@
           messageDiv.innerHTML = '<div class="success">✓ Account created successfully! Redirecting to login...</div>';
           
           setTimeout(() => {
-            window.location.href = 'login.html';
+            window.location.href = 'portal.html';
           }, 2000);
           
         } else {
