@@ -161,16 +161,19 @@
     
     <div class="demo-info">
       <strong>Demo Credentials:</strong><br>
-      <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5738203932251733323a387934383a">[email&#160;protected]</a> / demo123
+      owner@demo.com / demo123
     </div>
   </div>
   
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // ⚠️ IMPORTANT: Replace with your v13 Ultra Apps Script web app URL
-    const API_URL = 'https://script.google.com/macros/s/AKfycbwCcZnw2M4FRNyTrM3oHZjfn8lCvlelqa1Wc1jvQeKrpkvA6mBzjl_zWRmlUQHNMSHc/exec';
+  <script>
+    // ⚠️ IMPORTANT: Replace with your Apps Script web app URL
+    const API_URL = 'https://script.google.com/macros/library/d/1qAJ3pgyTvJLzoiuaOCzbu_b9dj4rQmQgYkM9UyTEDvMCa9yA-lPfvcti/1';
+    
+    console.log('Login page loaded. API_URL:', API_URL);
     
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
+      console.log('Form submitted, default prevented');
       
       const btn = document.getElementById('loginBtn');
       const messageDiv = document.getElementById('message');
@@ -183,9 +186,13 @@
       
       try {
         const url = `${API_URL}?action=login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+        console.log('Calling API:', url);
         
         const response = await fetch(url);
+        console.log('Response received:', response.status);
+        
         const data = await response.json();
+        console.log('Data:', data);
         
         if (data.success) {
           localStorage.setItem('token', data.token);
@@ -193,6 +200,7 @@
           
           messageDiv.innerHTML = '<div class="success">✓ Login successful! Redirecting...</div>';
           
+          console.log('Redirecting to portal.html...');
           setTimeout(() => {
             window.location.href = 'portal.html';
           }, 500);
@@ -204,4 +212,12 @@
         }
         
       } catch (error) {
-        console.error('Login error
+        console.error('Login error:', error);
+        messageDiv.innerHTML = '<div class="error">Connection error. Please check your API_URL.</div>';
+        btn.disabled = false;
+        btn.textContent = 'Login';
+      }
+    });
+  </script>
+</body>
+</html>
