@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COO Dashboard v12 - Login</title>
+  <title>COO Dashboard v13 Ultra - Login</title>
   <style>
     * {
       margin: 0;
@@ -127,7 +127,7 @@
 <body>
   <div class="login-container">
     <h1>COO Dashboard</h1>
-    <div class="version">v12 - Complete System</div>
+    <div class="version">v13 Ultra - Complete System</div>
     
     <form id="loginForm">
       <div class="form-group">
@@ -161,13 +161,13 @@
     
     <div class="demo-info">
       <strong>Demo Credentials:</strong><br>
-      owner@demo.com / demo123
+      <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5738203932251733323a387934383a">[email&#160;protected]</a> / demo123
     </div>
   </div>
   
-  <script>
-    // ⚠️ IMPORTANT: Replace with your v12 Apps Script web app URL
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxt6zJazLzGqyTIZbzLK4wA7EvvHiMByY0itHjBq1uEQdyJva4ck7OZQgg1GrKKF-Wv/exec';
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ⚠️ IMPORTANT: Replace with your v13 Ultra Apps Script web app URL
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwCcZnw2M4FRNyTrM3oHZjfn8lCvlelqa1Wc1jvQeKrpkvA6mBzjl_zWRmlUQHNMSHc/exec';
     
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -194,7 +194,7 @@
           messageDiv.innerHTML = '<div class="success">✓ Login successful! Redirecting...</div>';
           
           setTimeout(() => {
-            window.location.href = 'dashboard.html';
+            window.location.href = 'portal.html';
           }, 500);
           
         } else {
@@ -204,12 +204,4 @@
         }
         
       } catch (error) {
-        console.error('Login error:', error);
-        messageDiv.innerHTML = `<div class="error">Connection error. Please check your API_URL.</div>`;
-        btn.disabled = false;
-        btn.textContent = 'Login';
-      }
-    });
-  </script>
-</body>
-</html>
+        console.error('Login error
