@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COO Dashboard v12 - Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .login-container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 420px;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #333;
+      font-size: 28px;
+    }
+    
+    .version {
+      text-align: center;
+      color: #999;
+      font-size: 12px;
+      margin-bottom: 30px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: 500;
+    }
+    
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border-color 0.3s;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    button:hover {
+      background: #5568d3;
+    }
+    
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .error {
+      background: #fce4ec;
+      color: #c62828;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
+    
+    .success {
+      background: #d4edda;
+      color: #155724;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
+    
+    .demo-info {
+      text-align: center;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      color: #666;
+      font-size: 13px;
+    }
+    
+    .demo-info strong {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>COO Dashboard</h1>
+    <div class="version">v12 - Complete System</div>
+    
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          value="owner@demo.com"
+          required 
+          autocomplete="email"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password"
+          value="demo123"
+          required 
+          autocomplete="current-password"
+        >
+      </div>
+      
+      <button type="submit" id="loginBtn">Login</button>
+      
+      <div id="message"></div>
+    </form>
+    
+    <div class="demo-info">
+      <strong>Demo Credentials:</strong><br>
+      owner@demo.com / demo123
+    </div>
+  </div>
+  
+  <script>
+    // ⚠️ IMPORTANT: Replace with your v12 Apps Script web app URL
+    const API_URL = 'https://script.google.com/macros/s/AKfycby5GzBOvElKpBryhEvq4mWVmL3vvFCrM6RJmW6B1i0F1u_UiImcxNmryxq_mnDvTN9C/exec';
+    
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const btn = document.getElementById('loginBtn');
+      const messageDiv = document.getElementById('message');
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      btn.disabled = true;
+      btn.textContent = 'Logging in...';
+      messageDiv.innerHTML = '';
+      
+      try {
+        const url = `${API_URL}?action=login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+        
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (data.success) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          
+          messageDiv.innerHTML = '<div class="success">✓ Login successful! Redirecting...</div>';
+          
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 500);
+          
+        } else {
+          messageDiv.innerHTML = `<div class="error">${data.error || 'Login failed'}</div>`;
+          btn.disabled = false;
+          btn.textContent = 'Login';
+        }
+        
+      } catch (error) {
+        console.error('Login error:', error);
+        messageDiv.innerHTML = `<div class="error">Connection error. Please check your API_URL.</div>`;
+        btn.disabled = false;
+        btn.textContent = 'Login';
+      }
+    });
+  </script>
+</body>
+</html>
